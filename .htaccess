@@ -1,0 +1,11 @@
+RewriteEngine on
+
+# prevent deirectory browsing
+Options All -Indexes
+# prevent folder listing
+IndexIgnore *
+
+RewriteCond $1 !^(index\.php|images|js|css|favicon\.png)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ ./index.php/$1 [L]
