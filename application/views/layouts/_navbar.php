@@ -24,20 +24,24 @@
 				<li class="nav-item">
 					<a href="/cart.html" class="nav-link"><i class="fas fa-shopping-cart"></i> Cart (0)</a>
 				</li>
+				<?php if (! $this->session->userdata('is_login')) : ?>
 				<li class="nav-item">
-					<a href="/login.html" class="nav-link">Login</a>
+					<a href="<?= base_url('/login') ?>" class="nav-link">Login</a>
 				</li>
 				<li class="nav-item">
-					<a href="/register.html" class="nav-link">Register</a>
+					<a href="<?= base_url('/register') ?>" class="nav-link">Register</a>
 				</li>
+				<?php else : ?>
 				<li class="nav-item dropdown">
-					<a href="#" class="nav-link dropdown-toggle" id="dropdown-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+					<a href="#" class="nav-link dropdown-toggle" id="dropdown-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $this->session->userdata('name') ?></a>
 					<div class="dropdown-menu" aria-labelledby="dropdown-2">
 						<a href="/profile.html" class="dropdown-item">Profile</a>
 						<a href="/orders.html" class="dropdown-item">Orders</a>
-						<a href="#" class="dropdown-item">Logout</a>
+						<a href="<?= base_url('/logout') ?>" class="dropdown-item">Logout</a>
 					</div>
 				</li>
+				<?php endif ?>
+
 			</ul>
 		</div>
 
