@@ -195,6 +195,8 @@ class MY_Model extends CI_Model
 			$this->perPage,
 			$this->calculateRealOffset($page)
 		);
+
+		return $this;
 	}
 
 	/**
@@ -224,7 +226,7 @@ class MY_Model extends CI_Model
 	 */
 	public function makePagination($baseUrl, $uriSegment, $totalRows = null)
 	{
-		$this->load->libary('pagination');
+		$this->load->library('pagination');
 
 		$config = [
 			'base_url'			=> $baseUrl,
@@ -255,7 +257,7 @@ class MY_Model extends CI_Model
 		];
 
 		$this->pagination->initialize($config);
-		return $this->pagination->create_link();
+		return $this->pagination->create_links();
 	}
 }
 
