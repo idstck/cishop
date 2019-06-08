@@ -40,7 +40,7 @@
 								<td><?= $row->title ?></td>
 								<td><?= $row->slug ?></td>
 								<td>
-									<a href="#">
+									<a href="<?= base_url("category/edit/$row->id") ?>">
 										<button class="btn btn-sm">
 											<i class="fas fa-edit text-info"></i>
 										</button>
