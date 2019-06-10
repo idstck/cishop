@@ -8,19 +8,19 @@
 					<a href="<?= base_url('category/create') ?>" class="btn btn-sm btn-secondary">Tambah</a>
 
 					<div class="float-right">
-						<form action="">
+						<?= form_open(base_url('category/search'), ['method' => 'POST']) ?>
 							<div class="input-group">
-								<input type="text" name="keyword" class="form-control form-control-sm text-center" placeholder="Cari">
+								<input type="text" name="keyword" class="form-control form-control-sm text-center" placeholder="Cari" value="<?= $this->session->userdata('keyword') ?>">
 								<div class="input-group-append">
 									<button class="btn btn-info btn-sm" type="submit">
 										<i class="fas fa-search"></i>
 									</button>
-									<a href="#" class="btn btn-info btn-sm">
+									<a href="<?= base_url('category/reset') ?>" class="btn btn-info btn-sm">
 										<i class="fas fa-eraser"></i>
 									</a>
 								</div>
 							</div>
-						</form>
+						<?= form_close() ?>
 					</div>
 				</div>
 				<div class="card-body">
