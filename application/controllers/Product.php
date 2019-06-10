@@ -34,6 +34,43 @@ class Product extends MY_Controller
 		$this->view($data);
 	}
 
+	public function create()
+	{
+		if (!$_POST) {
+			$input	= (object) $this->product->getDefaultValues();
+		} else {
+			$input	= (object) $this->input->post(null, true);
+		}
+
+		if (!empty($_FILES) && $_FILES['image']['name'] !== '') {
+			$imageName	= url_title($input->title, '-', true) . '-' . date('YmdHis');
+			$upload		= $this->product->uploadImage('image', $imageName);
+			if ($upload) {
+				$input->image	= $upload['file_name'];
+			} else {
+				redirect(base_url('product/create'));
+			}
+		}
+
+		if (!$this->product->validate()) {
+			$data['title']			= 'Tambah Produk';
+			$data['input']			= $input;
+			$data['form_action']	= base_url('product/create');
+			$data['page']			= 'pages/product/form';
+
+			$this->view($data);
+			return;
+		}
+
+		if ($this->product->create($input)) {
+			$this->session->set_flashdata('success', 'Data berhasil disimpan!');
+		} else {
+			$this->session->set_flashdata('error', 'Oops! Terjadi suatu kesalahan');
+		}
+
+		redirect(base_url('product'));
+	}
+
 }
 
 /* End of file Product.php */
