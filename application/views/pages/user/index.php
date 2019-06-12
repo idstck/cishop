@@ -5,7 +5,7 @@
 			<div class="card mb-3">
 				<div class="card-header">
 					<span>Pengguna</span>
-					<a href="/admin-users-form.html" class="btn btn-sm btn-secondary">Tambah</a>
+					<a href="<?= base_url('user/create') ?>" class="btn btn-sm btn-secondary">Tambah</a>
 
 					<div class="float-right">
 						<form action="">
