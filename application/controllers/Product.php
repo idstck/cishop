@@ -118,6 +118,29 @@ class Product extends MY_Controller
 		redirect(base_url('product'));
 	}
 
+	public function delete($id)
+	{
+		if (!$_POST) {
+			redirect(base_url('product'));
+		}
+
+		$product = $this->product->where('id', $id)->first();
+
+		if (!$product) {
+			$this->session->set_flashdata('warning', 'Maaf, data tidak dapat ditemukan');
+			redirect(base_url('product'));
+		}
+
+		if ($this->product->where('id', $id)->delete()) {
+			$this->product->deleteImage($product->image);
+			$this->session->set_flashdata('success', 'Data sudah berhasil dihapus!');
+		} else {
+			$this->session->set_flashdata('error', 'Oops! Terjadi suatu kesalahan!');
+		}
+
+		redirect(base_url('product'));
+	}
+
 	public function unique_slug()
 	{
 		$slug		= $this->input->post('slug');
