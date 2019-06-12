@@ -51,7 +51,7 @@
 								<td>Rp<?= number_format($row->price, 0, ',', '.') ?>,-</td>
 								<td><?= $row->is_available ? 'Tersedia' : 'Kosong' ?></td>
 								<td>
-									<a href="#">
+									<a href="<?= base_url("/product/edit/$row->id") ?>">
 										<button class="btn btn-sm">
 											<i class="fas fa-edit text-info"></i>
 										</button>
