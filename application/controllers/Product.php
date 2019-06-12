@@ -39,7 +39,7 @@ class Product extends MY_Controller
 		if (isset($_POST['keyword'])) {
 			$this->session->set_userdata('keyword', $this->input->post('keyword'));
 		} else {
-			redirect(base_url('category'));
+			redirect(base_url('product'));
 		}
 
 		$keyword	= $this->session->userdata('keyword');

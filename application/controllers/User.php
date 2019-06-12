@@ -25,6 +25,36 @@ class User extends MY_Controller
 		$this->view($data);
 	}
 
+	public function search($page = null)
+	{
+		if (isset($_POST['keyword'])) {
+			$this->session->set_userdata('keyword', $this->input->post('keyword'));
+		} else {
+			redirect(base_url('user'));
+		}
+
+		$keyword	= $this->session->userdata('keyword');
+		$data['title']		= 'Admin: Pengguna';
+		$data['content']	= $this->user
+			->like('name', $keyword)
+			->orLike('email', $keyword)
+			->paginate($page)
+			->get();
+		$data['total_rows']	= $this->user->like('name', $keyword)->orLike('email', $keyword)->count();
+		$data['pagination']	= $this->user->makePagination(
+			base_url('user/search'), 3, $data['total_rows']
+		);
+		$data['page']		= 'pages/user/index';
+		
+		$this->view($data);
+	}
+
+	public function reset()
+	{
+		$this->session->unset_userdata('keyword');
+		redirect(base_url('user'));
+	}
+
 	public function create()
 	{
 		if (!$_POST) {
@@ -112,6 +142,29 @@ class User extends MY_Controller
 			$this->session->set_flashdata('success', 'Data berhasil disimpan!');
 		} else {
 			$this->session->set_flashdata('error', 'Oops! Terjadi suatu kesalahan');
+		}
+
+		redirect(base_url('user'));
+	}
+
+	public function delete($id)
+	{
+		if (!$_POST) {
+			redirect(base_url('user'));
+		}
+
+		$user = $this->user->where('id', $id)->first();
+
+		if (!$user) {
+			$this->session->set_flashdata('warning', 'Maaf, data tidak dapat ditemukan');
+			redirect(base_url('user'));
+		}
+
+		if ($this->user->where('id', $id)->delete()) {
+			$this->user->deleteImage($user->image);
+			$this->session->set_flashdata('success', 'Data sudah berhasil dihapus!');
+		} else {
+			$this->session->set_flashdata('error', 'Oops! Terjadi suatu kesalahan!');
 		}
 
 		redirect(base_url('user'));
