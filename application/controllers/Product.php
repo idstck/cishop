@@ -132,7 +132,7 @@ class Product extends MY_Controller
 				}
 				$data['input']->image	= $upload['file_name'];
 			} else {
-				redirect(base_url('product/create'));
+				redirect(base_url("product/edit/$id"));
 			}
 		}
 

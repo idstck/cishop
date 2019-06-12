@@ -65,6 +65,58 @@ class User extends MY_Controller
 		redirect(base_url('user'));
 	}
 
+	public function edit($id)
+	{
+		$data['content'] = $this->user->where('id', $id)->first();
+
+		if (!$data['content']) {
+			$this->session->set_flashdata('warning', 'Maaf, data tidak dapat ditemukan');
+			redirect(base_url('user'));
+		}
+
+		if (!$_POST) {
+			$data['input']	= $data['content'];
+		} else {
+			$data['input']	= (object) $this->input->post(null, true);
+			if ($data['input']->password !== '') {
+				$data['input']->password = hashEncrypt($data['input']->password);
+			} else {
+				$data['input']->password = $data['content']->password;
+			}
+		}
+
+		if (!empty($_FILES) && $_FILES['image']['name'] !== '') {
+			$imageName	= url_title($data['input']->name, '-', true) . '-' . date('YmdHis');
+			$upload		= $this->user->uploadImage('image', $imageName);
+			if ($upload) {
+				if ($data['content']->image !== '') {
+					$this->user->deleteImage($data['content']->image);
+				}
+				$data['input']->image	= $upload['file_name'];
+			} else {
+				redirect(base_url("user/edit/$id"));
+			}
+		}
+
+		if (!$this->user->validate()) {
+			$data['title']			= 'Ubah Pengguna';
+			$data['form_action']	= base_url("user/edit/$id");
+			$data['page']			= 'pages/user/form';
+
+			$this->view($data);
+			return;
+		}
+
+
+		if ($this->user->where('id', $id)->update($data['input'])) {
+			$this->session->set_flashdata('success', 'Data berhasil disimpan!');
+		} else {
+			$this->session->set_flashdata('error', 'Oops! Terjadi suatu kesalahan');
+		}
+
+		redirect(base_url('user'));
+	}
+
 	public function unique_email()
 	{
 		$email		= $this->input->post('email');
