@@ -5,7 +5,7 @@
 			<div class="card mb-3">
 				<div class="card-header">
 					<span>Produk</span>
-					<a href="/admin-product-form.html" class="btn btn-sm btn-secondary">Tambah</a>
+					<a href="<?= base_url('product/create') ?>" class="btn btn-sm btn-secondary">Tambah</a>
 
 					<div class="float-right">
 						<form action="">
