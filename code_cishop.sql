@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 10 Jun 2019 pada 12.07
+-- Waktu pembuatan: 12 Jun 2019 pada 11.11
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.1.26
 
@@ -57,7 +57,7 @@ CREATE TABLE `product` (
   `title` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `price` int(11) NOT NULL,
-  `is_avaiable` tinyint(1) NOT NULL DEFAULT '1',
+  `is_available` tinyint(1) NOT NULL DEFAULT '1',
   `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -73,15 +73,16 @@ CREATE TABLE `user` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `role` enum('admin','member') NOT NULL,
-  `is_active` tinyint(1) NOT NULL DEFAULT '1'
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `email`, `password`, `role`, `is_active`) VALUES
-(1, 'Hakim', 'hakim@mail.com', '$2y$10$UY7WsdFQjwS7o1UaYNRMGuGlhzi9HF7Ub9bmEH4m7YZBCun.pThJ.', 'member', 1);
+INSERT INTO `user` (`id`, `name`, `email`, `password`, `role`, `is_active`, `image`) VALUES
+(1, 'Hakim', 'hakim@mail.com', '$2y$10$UY7WsdFQjwS7o1UaYNRMGuGlhzi9HF7Ub9bmEH4m7YZBCun.pThJ.', 'member', 1, NULL);
 
 --
 -- Indexes for dumped tables
