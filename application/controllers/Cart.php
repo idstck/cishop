@@ -20,7 +20,8 @@ class Cart extends MY_Controller {
 
 	public function add()
 	{
-		if (!$_POST) {
+		if (!$_POST || $this->input->post('qty') < 1) {
+			$this->session->set_flashdata('error', 'Kuantitas produk tidak boleh kosong!');
 			redirect(base_url());
 		} else {
 			$input				= (object) $this->input->post(null, true);

@@ -27,9 +27,10 @@
 							<a href="<?= base_url("/shop/category/$row->category_slug") ?>" class="badge badge-primary"><i class="fas fa-tags"></i> <?= $row->category_title ?></a>
 						</div>
 						<div class="card-footer">
-							<form action="">
+							<form action="<?= base_url("/cart/add") ?>" method="POST">
+								<input type="hidden" name="id_product" value="<?= $row->id ?>">
 								<div class="input-group">
-									<input type="number" class="form-control">
+									<input type="number" name="qty" value="1" class="form-control">
 									<div class="input-group-append">
 										<button class="btn btn-primary">Add to Cart</button>
 									</div>
