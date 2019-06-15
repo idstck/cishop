@@ -53,11 +53,13 @@
 							Pencarian
 						</div>
 						<div class="card-body">
-							<form action="">
+							<form action="<?= base_url("/shop/search") ?>" method="POST">
 								<div class="input-group">
-									<input type="text" class="form-control">
+									<input type="text" name="keyword" placeholder="Cari" value="<?= $this->session->userdata('keyword') ?>" class="form-control">
 									<div class="input-group-append">
-										<button class="btn btn-primary">Cari</button>
+										<button class="btn btn-primary" type="submit">
+											<i class="fas fa-search"></i>
+										</button>
 									</div>
 								</div>
 							</form>
