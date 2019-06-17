@@ -7,7 +7,7 @@
 			<a href="<?= base_url("/profile") ?>">Profile</a>
 		</li>
 		<li class="list-group-item">
-			<a href="/orders.html">Orders</a>
+			<a href="<?= base_url("/myorder") ?>">Orders</a>
 		</li>
 	</div>
 </div>
