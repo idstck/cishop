@@ -19,36 +19,18 @@
 							</tr>
 						</thead>
 						<tbody>
+							<?php foreach ($content as $row) : ?>
 							<tr>
 								<td>
-									<a href="/orders-detail.html"><strong>#012341234</strong></a>
+									<a href="#"><strong>#<?= $row->invoice ?></strong></a>
 								</td>
-								<td>2019/05/20</td>
-								<td>Rp300.000,-</td>
+								<td><?= str_replace('-', '/', date("d-m-Y", strtotime($row->date))) ?></td>
+								<td>Rp<?= number_format($row->total, 0, ',', '.') ?>,-</td>
 								<td>
-									<span class="badge badge-pill badge-info">Menunggu Pembayaran</span>
+									<?php $this->load->view('layouts/_status', ['status' => $row->status ]);  ?>
 								</td>
 							</tr>
-							<tr>
-								<td>
-									<a href="/orders-detail.html"><strong>#012341234</strong></a>
-								</td>
-								<td>2019/05/19</td>
-								<td>Rp300.000,-</td>
-								<td>
-									<span class="badge badge-pill badge-success">Dikirim</span>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<a href="/orders-detail.html"><strong>#012341234</strong></a>
-								</td>
-								<td>2019/05/10</td>
-								<td>Rp300.000,-</td>
-								<td>
-									<span class="badge badge-pill badge-danger">Dibatalkan</span>
-								</td>
-							</tr>
+							<?php endforeach ?>
 						</tbody>
 					</table>
 				</div>
