@@ -7,21 +7,21 @@
 					Formulir Alamat Pengirimian
 				</div>
 				<div class="card-body">
-					<form action="">
+					<form action="<?= base_url("/checkout/create") ?>" method="POST">
 						<div class="form-group">
 							<label for="">Nama</label>
-							<input type="text" class="form-control" name="name" placeholder="Masukkan nama penerima">
-							<small class="form-text text-danger">Nama harus diisi.</small>
+							<input type="text" class="form-control" name="name" placeholder="Masukkan nama penerima" value="<?= $input->name ?>">
+							<?= form_error('name') ?>
 						</div>
 						<div class="form-group">
 							<label for="">Alamat</label>
-							<textarea name="address" id="" cols="30" rows="5" class="form-control"></textarea>
-							<small class="form-text text-danger">Alamat harus diisi.</small>
+							<textarea name="address" id="" cols="30" rows="5" class="form-control"><?= $input->address ?></textarea>
+							<?= form_error('address') ?>
 						</div>
 						<div class="form-group">
 							<label for="">Telepon</label>
-							<input type="text" class="form-control" name="phone" placeholder="Masukkan nomor telepon penerima">
-							<small class="form-text text-danger">Nomor Telepon harus diisi.</small>
+							<input type="text" class="form-control" name="phone" placeholder="Masukkan nomor telepon penerima" value="<?= $input->phone ?>">
+							<?= form_error('phone') ?>
 						</div>
 
 						<button class="btn btn-primary" type="submit">Simpan</button>
