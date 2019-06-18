@@ -7,15 +7,16 @@
 		<div class="col-md-9">
 			<div class="card">
 				<div class="card-header">
-					Detail Order #01234123
+					Detail Order #<?= $order->invoice ?>
 					<div class="float-right">
-						<span class="badge badge-pill badge-info">Menunggu Pembayaran</span>
+						<?php $this->load->view('layouts/_status', ['status' => $order->status]); ?>
 					</div>
 				</div>
 				<div class="card-body">
-					<p>Nama: Nama Penemira</p>
-					<p>Telepon: 08991231231</p>
-					<p>Alamat: Jl. Sesama, No. 123</p>
+					<p>Tanggal: <?= str_replace('-', '/', date("d-m-Y", strtotime($order->date))) ?></p>
+					<p>Nama: <?= $order->name ?></p>
+					<p>Telepon: <?= $order->phone ?></p>
+					<p>Alamat: <?= $order->address ?></p>
 					<table class="table">
 						<thead>
 							<tr>
@@ -26,17 +27,19 @@
 							</tr>
 						</thead>
 						<tbody>
+							<?php foreach ($order_detail as $row) : ?>
 							<tr>
 								<td>
-									<p><img src="https://placehold.co/50x50" alt=""> <strong>Produk Title</strong></p>
+									<p><img src="<?= $row->image ? base_url("/images/product/$row->image") : base_url('/images/product/default.png') ?>" alt="" height="50"> <strong><?= $row->title ?></strong></p>
 								</td>
-								<td class="text-center">Rp100.000,-</td>
-								<td class="text-center">1</td>
-								<td class="text-center">Rp100.000,-</td>
+								<td class="text-center">Rp<?= number_format($row->price, 0, ',', '.') ?>,-</td>
+								<td class="text-center"><?= $row->qty ?></td>
+								<td class="text-center">Rp<?= number_format($row->subtotal, 0, ',', '.') ?>,-</td>
 							</tr>
+							<?php endforeach ?>
 							<tr>
 								<td colspan="3"><strong>Total:</strong></td>
-								<td class="text-center"><strong>Rp100.000,-</strong></td>
+								<td class="text-center"><strong>Rp<?= number_format(array_sum(array_column($order_detail, 'subtotal')), 0, ',', '.') ?>,-</strong></td>
 							</tr>
 						</tbody>
 					</table>
