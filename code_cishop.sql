@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 12 Jun 2019 pada 11.11
+-- Waktu pembuatan: 18 Jun 2019 pada 14.57
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.1.26
 
@@ -25,6 +25,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `cart`
+--
+
+CREATE TABLE `cart` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `subtotal` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `category`
 --
 
@@ -34,15 +48,53 @@ CREATE TABLE `category` (
   `title` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data untuk tabel `category`
+-- Struktur dari tabel `orders`
 --
 
-INSERT INTO `category` (`id`, `slug`, `title`) VALUES
-(1, 'android', 'Android Phone'),
-(2, 'laptops', 'Laptops'),
-(3, 'game-console', 'Game Console'),
-(4, 'power-banks', 'Power Banks');
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `invoice` varchar(100) NOT NULL,
+  `total` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `phone` varchar(15) NOT NULL,
+  `status` enum('waiting','paid','delivered','cancel') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `orders_confirm`
+--
+
+CREATE TABLE `orders_confirm` (
+  `id` int(11) NOT NULL,
+  `id_orders` int(11) NOT NULL,
+  `account_name` varchar(255) NOT NULL,
+  `account_number` varchar(50) NOT NULL,
+  `nominal` int(11) NOT NULL,
+  `note` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `orders_detail`
+--
+
+CREATE TABLE `orders_detail` (
+  `id` int(11) NOT NULL,
+  `id_orders` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `qty` int(4) NOT NULL,
+  `subtotal` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -78,20 +130,37 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `user`
---
-
-INSERT INTO `user` (`id`, `name`, `email`, `password`, `role`, `is_active`, `image`) VALUES
-(1, 'Hakim', 'hakim@mail.com', '$2y$10$UY7WsdFQjwS7o1UaYNRMGuGlhzi9HF7Ub9bmEH4m7YZBCun.pThJ.', 'member', 1, NULL);
-
---
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `category`
 --
 ALTER TABLE `category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `orders_confirm`
+--
+ALTER TABLE `orders_confirm`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `orders_detail`
+--
+ALTER TABLE `orders_detail`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -111,10 +180,34 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `orders_confirm`
+--
+ALTER TABLE `orders_confirm`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `orders_detail`
+--
+ALTER TABLE `orders_detail`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `product`
@@ -126,7 +219,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
