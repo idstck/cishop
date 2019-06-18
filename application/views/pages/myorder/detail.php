@@ -45,7 +45,7 @@
 					</table>
 				</div>
 				<div class="card-footer">
-					<a href="/orders-confirm.html" class="btn btn-success">Konfirmasi Pembayaran</a>
+					<a href="<?= base_url("/myorder/confirm/$order->invoice") ?>" class="btn btn-success">Konfirmasi Pembayaran</a>
 				</div>
 			</div>
 		</div>
