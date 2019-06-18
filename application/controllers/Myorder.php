@@ -28,6 +28,28 @@ class Myorder extends MY_Controller
 		$this->view($data);
 	}
 
+	public function detail($invoice)
+	{
+		$data['order']	= $this->myorder->where('invoice', $invoice)->first();
+		if (!$data['order']) {
+			$this->session->set_flashdata('warning', 'Data tidak ditemukan.');
+			redirect(base_url('/myorder'));
+		}
+
+		$this->myorder->table	= 'orders_detail';
+		$data['order_detail']	= $this->myorder->select([
+				'orders_detail.id_orders', 'orders_detail.id_product', 'orders_detail.qty',
+				'orders_detail.subtotal', 'product.title', 'product.image', 'product.price'
+			])
+			->join('product')
+			->where('orders_detail.id_orders', $data['order']->id)
+			->get();
+		
+		$data['page']			= 'pages/myorder/detail';
+
+		$this->view($data);
+	}
+
 }
 
 /* End of file Myorder.php */
