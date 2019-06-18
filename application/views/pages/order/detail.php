@@ -44,13 +44,14 @@
 							</table>
 						</div>
 						<div class="card-footer">
-							<form action="#">
+							<form action="<?= base_url("order/update/$order->id") ?>" method="POST">
+								<input type="hidden" name="id" value="<?= $order->id ?>">
 								<div class="input-group">
-									<select name="" id="" class="form-control">
-										<option value="waiting">Menunggu Pembayaran</option>
-										<option value="paid">Dibayar</option>
-										<option value="deliverd">Dikirim</option>
-										<option value="cancel">Batal</option>
+									<select name="status" id="" class="form-control">
+										<option value="waiting" <?= $order->status == 'waiting' ? 'selected' : '' ?> >Menunggu Pembayaran</option>
+										<option value="paid" <?= $order->status == 'paid' ? 'selected' : '' ?>>Dibayar</option>
+										<option value="delivered" <?= $order->status == 'delivered' ? 'selected' : '' ?>>Dikirim</option>
+										<option value="cancel" <?= $order->status == 'cancel' ? 'selected' : '' ?>>Batal</option>
 									</select>
 									<div class="input-group-append">
 										<button class="btn btn-primary" type="submit">Simpan</button>
