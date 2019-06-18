@@ -44,6 +44,11 @@ class Myorder extends MY_Controller
 			->join('product')
 			->where('orders_detail.id_orders', $data['order']->id)
 			->get();
+
+		if ($data['order']->status !== 'waiting') {
+			$this->myorder->table = 'orders_confirm';
+			$data['order_confirm']	= $this->myorder->where('id_orders', $data['order']->id)->first();
+		}
 		
 		$data['page']			= 'pages/myorder/detail';
 
@@ -89,7 +94,7 @@ class Myorder extends MY_Controller
 		}
 
 		$this->myorder->table = 'orders_confirm';
-		
+
 		if ($this->myorder->create($data['input'])) {
 			$this->myorder->table = 'orders';
 			$this->myorder->where('id', $data['input']->id_orders)->update(['status' => 'paid']);
