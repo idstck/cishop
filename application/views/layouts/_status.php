@@ -22,4 +22,4 @@
 
 <?php if ($status) : ?>
 <span class="badge badge-pill <?= $badge_status ?>"><?= $status ?></span>
-<? endif ?>
+<?php endif ?>
