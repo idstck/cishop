@@ -9,8 +9,8 @@ class MY_Controller extends CI_Controller
 	{
 		parent::__construct();
 		$model = strtolower(get_class($this));
-		if (file_exists(APPPATH . 'models/'. $model . '_model.php')) {
-			$this->load->model($model . '_model', $model, true);
+		if (file_exists(APPPATH . 'models/'. ucfirst($model) . '_model.php')) {
+			$this->load->model(ucfirst($model) . '_model', $model, true);
 		}
 	}
 	
