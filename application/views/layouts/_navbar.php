@@ -10,6 +10,7 @@
 				<li class="nav-item active">
 					<a class="nav-link" href="<?= base_url('') ?>">Home <span class="sr-only">(current)</span></a>
 				</li>
+				<?php if (! $this->session->userdata('role') == 'admin') : ?>
 				<li class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle" id="dropdown-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage</a>
 					<div class="dropdown-menu" aria-labelledby="dropdown-1">
@@ -19,6 +20,7 @@
 						<a href="<?= base_url('user') ?>" class="dropdown-item">Pengguna</a>
 					</div>
 				</li>
+				<?php endif ?>
 			</ul>
 			<ul class="navbar-nav">
 				<li class="nav-item">
